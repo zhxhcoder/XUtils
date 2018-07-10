@@ -4,9 +4,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,16 +29,23 @@ public class MainActivity extends AppCompatActivity {
         //for (Application application : AppInfoUtils.getAllNonSystemApplication(this)) {
         //    test = "\n" + application.getPackageName() + test;
         //}
-
+        tv_show.setMovementMethod(LinkMovementMethod.getInstance());
         tv_show.setText(DisplayUtils.getClickSpanStr("hello world", "world", new Clickable(Color.RED, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("hhhh","hhhh");
 
                 Toast.makeText(MainActivity.this, "world", Toast.LENGTH_LONG).show();
-
             }
         })));
+
+
+        DisplayUtils.setClickSpan(tv_show,"hdddhhh","ddd",new Clickable(Color.BLUE, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "ddd", Toast.LENGTH_LONG).show();
+
+            }
+        }));
 
 
     }
@@ -45,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
         private int color;
         private View.OnClickListener mListener;
 
-        public Clickable(int color, View.OnClickListener l) {
+        public Clickable(int color, View.OnClickListener mListener) {
             this.color = color;
-            mListener = l;
+            this.mListener = mListener;
         }
 
         @Override
